@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UniEventos — Viva o Futebol de Outro Jeito</title>
+
+  <!-- Fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════════
+       NAVBAR
+  ═══════════════════════════════════ -->
+  <nav class="navbar">
+    <div class="navbar__logo">UNI<span>EVENTOS</span></div>
+
+    <ul class="navbar__links">
+      <li><a href="#experiencias">Experiências</a></li>
+      <li><a href="#estadios">Estádios</a></li>
+      <li><a href="#copa">Copa 2026</a></li>
+      <li><a href="#social">Social</a></li>
+      <li><a href="#pacotes">Pacotes</a></li>
+    </ul>
+
+    <button class="navbar__cta">Reserve agora</button>
+  </nav>
+
+
+  <!-- ══════════════════════════════════
+       HERO
+  ═══════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero__glow"></div>
+
+    <div class="hero__content">
+      <div class="hero__badge">Copa do Mundo FIFA 2026</div>
+
+      <h1 class="hero__title">
+        VIVA O<br>
+        <span class="accent">FUTEBOL</span><br>
+        DE OUTRO<br>JEITO
+      </h1>
+
+      <p class="hero__sub">
+        Espaços exclusivos dentro dos maiores estádios do Brasil e do mundo.
+        Conforto, organização e toda a emoção de estar lá.
+      </p>
+
+      <div class="hero__btns">
+        <button class="btn-primary" onclick="document.getElementById('experiencias').scrollIntoView({behavior:'smooth'})">
+          Ver experiências
+        </button>
+        <button class="btn-ghost" onclick="document.getElementById('pacotes').scrollIntoView({behavior:'smooth'})">
+          Ver pacotes →
+        </button>
+      </div>
+    </div>
+
+    <!-- Decoração: campo de futebol -->
+    <div class="hero__pitch">
+      <svg width="300" height="200" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="2" width="296" height="196" rx="10" stroke="white" stroke-width="1.5"/>
+        <line x1="150" y1="2" x2="150" y2="198" stroke="white" stroke-width="0.8"/>
+        <circle cx="150" cy="100" r="36" stroke="white" stroke-width="0.8"/>
+        <circle cx="150" cy="100" r="3" fill="white"/>
+        <rect x="2" y="66" width="46" height="68" rx="2" stroke="white" stroke-width="0.8"/>
+        <rect x="252" y="66" width="46" height="68" rx="2" stroke="white" stroke-width="0.8"/>
+        <rect x="2" y="82" width="18" height="36" rx="1" stroke="white" stroke-width="0.8"/>
+        <rect x="280" y="82" width="18" height="36" rx="1" stroke="white" stroke-width="0.8"/>
+        <circle cx="48" cy="100" r="14" stroke="white" stroke-width="0.8"/>
+        <circle cx="252" cy="100" r="14" stroke="white" stroke-width="0.8"/>
+        <path d="M68 2 Q150 40 232 2" stroke="white" stroke-width="0.6" fill="none" stroke-dasharray="3 3"/>
+        <path d="M68 198 Q150 160 232 198" stroke="white" stroke-width="0.6" fill="none" stroke-dasharray="3 3"/>
+      </svg>
+    </div>
+
+    <!-- Estatísticas -->
+    <div class="hero__stats">
+      <div>
+        <div class="hero__stat-num">16</div>
+        <div class="hero__stat-label">Estádios Copa</div>
+      </div>
+      <div>
+        <div class="hero__stat-num">R$150</div>
+        <div class="hero__stat-label">A partir de</div>
+      </div>
+      <div>
+        <div class="hero__stat-num">3</div>
+        <div class="hero__stat-label">Países</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════
+       SEARCH BAR
+  ═══════════════════════════════════ -->
+  <div class="search-wrap">
+    <div class="search-bar">
+
+      <div class="search-field">
+        <label for="s-local">Estádio ou cidade</label>
+        <input type="text" id="s-local" placeholder="Ex: Neo Química Arena, SP" />
+      </div>
+
+      <div class="search-field">
+        <label for="s-date">Data do jogo</label>
+        <input type="date" id="s-date" />
+      </div>
+
+      <div class="search-field">
+        <label for="s-guests">Número de pessoas</label>
+        <input type="number" id="s-guests" placeholder="Quantos?" min="1" />
+      </div>
+
+      <div class="search-field">
+        <label for="s-pkg">Tipo de pacote</label>
+        <input type="text" id="s-pkg" placeholder="Family, Premium, VIP…" />
+      </div>
+
+      <button class="search-bar__btn" aria-label="Buscar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+             stroke="#1a1a1a" stroke-width="2.5"
+             stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
+
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════
+       EXPERIÊNCIAS
+  ═══════════════════════════════════ -->
+  <section class="experiences" id="experiencias">
+    <div class="experiences__header">
+      <div>
+        <div class="section-label">Nossas Experiências</div>
+        <h2 class="section-title">ESPAÇOS DISPONÍVEIS</h2>
+        <p class="section-sub">Áreas reservadas dentro dos melhores estádios do Brasil para grupos, famílias e empresas.</p>
+      </div>
+      <button class="btn-outline-dark">Ver todos os eventos →</button>
+    </div>
+
+    <div class="exp-grid">
+
+      <!-- Card 1 — Neo Química Arena -->
+      <div class="exp-card">
+        <div class="exp-card__img exp-card__img--1">
+          <div class="exp-card__overlay">
+            <svg viewBox="0 0 320 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="4" width="312" height="184" rx="6" stroke="white" stroke-width="1"/>
+              <line x1="160" y1="4" x2="160" y2="188" stroke="white" stroke-width="0.5"/>
+              <circle cx="160" cy="96" r="34" stroke="white" stroke-width="0.5"/>
+              <rect x="4" y="62" width="44" height="68" rx="2" stroke="white" stroke-width="0.5"/>
+              <rect x="272" y="62" width="44" height="68" rx="2" stroke="white" stroke-width="0.5"/>
+            </svg>
+          </div>
+          <span class="exp-badge">Disponível</span>
+        </div>
+        <div class="exp-card__body">
+          <div class="exp-card__stadium">Neo Química Arena · Corinthians</div>
+          <div class="exp-card__name">Family Experience Premium</div>
+          <div class="exp-card__footer">
+            <div class="exp-price">R$280 <span>/ pessoa</span></div>
+            <div class="exp-avail">8 vagas</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 — Allianz Parque -->
+      <div class="exp-card">
+        <div class="exp-card__img exp-card__img--2">
+          <div class="exp-card__overlay">
+            <svg viewBox="0 0 320 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="4" width="312" height="184" rx="6" stroke="white" stroke-width="1"/>
+              <line x1="160" y1="4" x2="160" y2="188" stroke="white" stroke-width="0.5"/>
+              <circle cx="160" cy="96" r="34" stroke="white" stroke-width="0.5"/>
+              <rect x="4" y="62" width="44" height="68" rx="2" stroke="white" stroke-width="0.5"/>
+              <rect x="272" y="62" width="44" height="68" rx="2" stroke="white" stroke-width="0.5"/>
+            </svg>
+          </div>
+          <span class="exp-badge exp-badge--white">Mais popular</span>
+        </div>
+        <div class="exp-card__body">
+          <div class="exp-card__stadium">Allianz Parque · Palmeiras</div>
+          <div class="exp-card__name">Camarote UniEventos VIP</div>
+          <div class="exp-card__footer">
+            <div class="exp-price">R$400 <span>/ pessoa</span></div>
+            <div class="exp-avail">3 vagas</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 — Maracanã -->
+      <div class="exp-card">
+        <div class="exp-card__img exp-card__img--3">
+          <div class="exp-card__overlay">
+            <svg viewBox="0 0 320 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="4" width="312" height="184" rx="6" stroke="white" stroke-width="1"/>
+              <line x1="160" y1="4" x2="160" y2="188" stroke="white" stroke-width="0.5"/>
+              <circle cx="160" cy="96" r="34" stroke="white" stroke-width="0.5"/>
+              <rect x="4" y="62" width="44" height="68" rx="2" stroke="white" stroke-width="0.5"/>
+              <rect x="272" y="62" width="44" height="68" rx="2" stroke="white" stroke-width="0.5"/>
+            </svg>
+          </div>
+          <span class="exp-badge">Copa 2026</span>
+        </div>
+        <div class="exp-card__body">
+          <div class="exp-card__stadium">Maracanã · Rio de Janeiro</div>
+          <div class="exp-card__name">Espaço Família Copa</div>
+          <div class="exp-card__footer">
+            <div class="exp-price">R$350 <span>/ pessoa</span></div>
+            <div class="exp-avail">12 vagas</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════
+       ESTÁDIOS PARCEIROS
+  ═══════════════════════════════════ -->
+  <section class="stadiums" id="estadios">
+    <div class="section-label">Onde atuamos</div>
+    <h2 class="section-title">ESTÁDIOS PARCEIROS</h2>
+
+    <div class="stadiums__scroll">
+      <button class="stadium-pill active"><span class="stadium-pill__dot"></span>Neo Química Arena</button>
+      <button class="stadium-pill"><span class="stadium-pill__dot"></span>Allianz Parque</button>
+      <button class="stadium-pill"><span class="stadium-pill__dot"></span>Maracanã</button>
+      <button class="stadium-pill"><span class="stadium-pill__dot"></span>Morumbi</button>
+      <button class="stadium-pill"><span class="stadium-pill__dot"></span>Mineirão</button>
+      <button class="stadium-pill"><span class="stadium-pill__dot"></span>Arena do Grêmio</button>
+      <button class="stadium-pill"><span class="stadium-pill__dot"></span>Beira-Rio</button>
+      <button class="stadium-pill"><span class="stadium-pill__dot"></span>Arena Fonte Nova</button>
+      <button class="stadium-pill"><span class="stadium-pill__dot"></span>Arena Castelão</button>
+      <button class="stadium-pill"><span class="stadium-pill__dot"></span>Mané Garrincha</button>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════
+       COPA 2026
+  ═══════════════════════════════════ -->
+  <section class="copa" id="copa">
+    <div class="copa__inner">
+
+      <div class="copa__content">
+        <div class="section-label">Objetivo Internacional</div>
+        <h2 class="section-title" style="color:#fff; font-size:56px;">
+          A GENTE VAI<br>PARA A <span style="color: var(--gold);">COPA</span>
+        </h2>
+        <p class="section-sub">
+          Presença nos 16 estádios oficiais da Copa do Mundo FIFA 2026,
+          nos Estados Unidos, México e Canadá.
+        </p>
+        <div class="copa__flags">
+          <span class="flag-chip">🇺🇸 Estados Unidos · 11 estádios</span>
+          <span class="flag-chip">🇲🇽 México · 3 estádios</span>
+          <span class="flag-chip">🇨🇦 Canadá · 2 estádios</span>
+          <span class="flag-chip">MetLife Stadium</span>
+          <span class="flag-chip">SoFi Stadium</span>
+          <span class="flag-chip">AT&amp;T Stadium</span>
+          <span class="flag-chip">Estadio Azteca</span>
+          <span class="flag-chip">BMO Field</span>
+          <span class="flag-chip">Levi's Stadium</span>
+        </div>
+      </div>
+
+      <div class="copa__numbers">
+        <div class="copa__num">
+          <div class="copa__num-val">16</div>
+          <div class="copa__num-label">Estádios</div>
+        </div>
+        <div class="copa__num">
+          <div class="copa__num-val">3</div>
+          <div class="copa__num-label">Países</div>
+        </div>
+        <div class="copa__num">
+          <div class="copa__num-val">∞</div>
+          <div class="copa__num-label">Emoção</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════
+       SOCIAL
+  ═══════════════════════════════════ -->
+  <section class="social" id="social">
+    <div class="section-label">Impacto Social</div>
+    <h2 class="section-title">MAIS DO QUE<br>ENTRETENIMENTO</h2>
+    <p class="section-sub">
+      A UniEventos acredita que o futebol é de todos. Por isso atuamos em dois mundos ao mesmo tempo.
+    </p>
+
+    <div class="social__grid">
+
+      <div class="social-card">
+        <div class="social-card__icon social-card__icon--gold">⚽</div>
+        <div>
+          <div class="social-card__title">Family Experience nos Estádios</div>
+          <p class="social-card__desc">
+            Espaços reservados e exclusivos dentro dos melhores estádios do Brasil.
+            Para grupos, empresas e famílias que querem viver o futebol com conforto,
+            privacidade e serviços premium.
+          </p>
+        </div>
+      </div>
+
+      <div class="social-card">
+        <div class="social-card__icon social-card__icon--green">🏘️</div>
+        <div>
+          <div class="social-card__title">UniEventos nas Comunidades</div>
+          <p class="social-card__desc">
+            Telões, som profissional, estrutura completa e organização levada
+            gratuitamente para comunidades brasileiras. Porque a alegria do futebol
+            não pode ter preço. Parceiros: CUFA e Gerando Falcões.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════
+       PACOTES
+  ═══════════════════════════════════ -->
+  <section class="packages" id="pacotes">
+    <div class="packages__header">
+      <div class="section-label">Preços e Pacotes</div>
+      <h2 class="section-title">ESCOLHA SUA EXPERIÊNCIA</h2>
+      <p class="section-sub">Três opções para todos os estilos. Todos com área exclusiva, segurança e equipe dedicada.</p>
+    </div>
+
+    <div class="pkg-grid">
+
+      <!-- Básico -->
+      <div class="pkg-card">
+        <div class="pkg-tier">Pacote Básico</div>
+        <div class="pkg-price-row">
+          <div class="pkg-price">R$150</div>
+          <div class="pkg-per">/ pessoa</div>
+        </div>
+        <ul class="pkg-features">
+          <li>Área reservada no estádio</li>
+          <li>Telão de apoio</li>
+          <li>Segurança exclusiva</li>
+          <li>Equipe de limpeza</li>
+          <li>Acessibilidade garantida</li>
+        </ul>
+        <button class="pkg-btn">Reservar agora</button>
+      </div>
+
+      <!-- Family Premium — destaque -->
+      <div class="pkg-card pkg-card--featured">
+        <div class="pkg-featured-label">Mais escolhido</div>
+        <div class="pkg-tier">Family Premium</div>
+        <div class="pkg-price-row">
+          <div class="pkg-price">R$280</div>
+          <div class="pkg-per">/ pessoa</div>
+        </div>
+        <ul class="pkg-features">
+          <li>Área reservada VIP</li>
+          <li>Visão privilegiada do campo</li>
+          <li>Barman exclusivo</li>
+          <li>Comidas e bebidas inclusas</li>
+          <li>Segurança e acessibilidade</li>
+          <li>Espaço infantil</li>
+        </ul>
+        <button class="pkg-btn">Reservar agora</button>
+      </div>
+
+      <!-- Camarote VIP -->
+      <div class="pkg-card">
+        <div class="pkg-tier">Camarote VIP</div>
+        <div class="pkg-price-row">
+          <div class="pkg-price">R$400</div>
+          <div class="pkg-per">/ pessoa</div>
+        </div>
+        <ul class="pkg-features">
+          <li>Camarote exclusivo</li>
+          <li>Vista frontal do campo</li>
+          <li>Open bar premium</li>
+          <li>Equipe de atendimento dedicada</li>
+          <li>Branding personalizado</li>
+          <li>Transfer incluso</li>
+        </ul>
+        <button class="pkg-btn">Reservar agora</button>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════
+       PARCEIROS
+  ═══════════════════════════════════ -->
+  <section class="partners">
+    <div class="partners__label">Nossos parceiros</div>
+    <div class="partners__logos">
+      <div class="partner-logo">COCA-COLA</div>
+      <div class="partner-logo">AMBEV</div>
+      <div class="partner-logo">IFOOD</div>
+      <div class="partner-logo">ADIDAS</div>
+      <div class="partner-logo">AIRBNB</div>
+      <div class="partner-logo">GLOBO</div>
+      <div class="partner-logo">FIFA</div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer__top">
+
+      <div>
+        <div class="footer__brand-logo">UNI<span>EVENTOS</span></div>
+        <p class="footer__tagline">
+          A energia da torcida com a exclusividade e organização que você merece.
+        </p>
+      </div>
+
+      <div class="footer__links">
+
+        <div class="footer__col">
+          <h4>Empresa</h4>
+          <a href="#">Sobre nós</a>
+          <a href="#">Missão e Valores</a>
+          <a href="#">Parcerias</a>
+          <a href="#">Imprensa</a>
+          <a href="#">Contato</a>
+        </div>
+
+        <div class="footer__col">
+          <h4>Experiências</h4>
+          <a href="#">Estádios SP</a>
+          <a href="#">Estádios RJ</a>
+          <a href="#">Região Sul</a>
+          <a href="#">Nordeste</a>
+          <a href="#">Copa 2026</a>
+        </div>
+
+        <div class="footer__col">
+          <h4>Contato</h4>
+          <a href="mailto:contato@UniEventos.com.br">contato@UniEventos.com.br</a>
+          <a href="tel:+5519988260363">(19) 98826-0363</a>
+          <a href="tel:+551937191167">(19) 3719-1167</a>
+          <a href="#">@unieventos.oficial</a>
+          <a href="#">Campinas, SP — Cambuí</a>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <div class="footer__copy">
+        © 2025 UniEventos · CNPJ 01.576.166/0839-13 · R. Dr. Antônio da Costa Carvalho, 580 — Campinas, SP
+      </div>
+      <div class="footer__social">
+        <div class="social-icon-btn" title="LinkedIn">in</div>
+        <div class="social-icon-btn" title="Instagram">ig</div>
+        <div class="social-icon-btn" title="WhatsApp">wa</div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- Scripts -->
+  <script src="main.js"></script>
+
+</body>
+</html>
