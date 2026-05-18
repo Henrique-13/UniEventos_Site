@@ -1,0 +1,1087 @@
+/* ════════════════════════════════════════
+   UNIEVENTOS — style.css
+   Estrutura:
+   1. Reset & Base
+   2. Variáveis CSS
+   3. Utilitários
+   4. Navbar
+   5. Hero
+   6. Search Bar
+   7. Experiências
+   8. Estádios
+   9. Copa 2026
+   10. Social
+   11. Pacotes
+   12. Parceiros
+   13. Footer
+   14. Responsivo
+════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────
+   1. RESET & BASE
+───────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: #1a1a1a;
+  background: #fff;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+}
+
+input {
+  font-family: 'DM Sans', sans-serif;
+}
+
+
+/* ─────────────────────────────────────
+   2. VARIÁVEIS CSS
+───────────────────────────────────── */
+:root {
+  --gold:     #F5C842;
+  --gold-dk:  #D4A800;
+  --dark:     #0d0d0d;
+  --dark2:    #1a1a1a;
+  --dark3:    #252525;
+  --green:    #27ae60;
+  --green-lt: #e8f8ef;
+  --white:    #ffffff;
+  --gray:     #666666;
+  --gray-lt:  #f5f5f5;
+  --border:   #e8e8e8;
+}
+
+
+/* ─────────────────────────────────────
+   3. UTILITÁRIOS
+───────────────────────────────────── */
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  line-height: 1;
+  letter-spacing: 1.5px;
+  color: var(--dark);
+  margin-bottom: 10px;
+}
+
+.section-sub {
+  font-size: 15px;
+  color: var(--gray);
+  font-weight: 300;
+  line-height: 1.7;
+  max-width: 500px;
+}
+
+/* Botões globais */
+.btn-primary {
+  background: var(--gold);
+  color: var(--dark);
+  border: none;
+  padding: 15px 32px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-primary:hover {
+  background: var(--gold-dk);
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  padding: 14px 32px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: border-color 0.2s, color 0.2s, transform 0.15s;
+}
+.btn-ghost:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+.btn-outline-dark {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--dark2);
+  padding: 12px 24px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 500;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+.btn-outline-dark:hover {
+  border-color: var(--dark);
+  background: var(--dark);
+  color: var(--white);
+}
+
+
+/* ─────────────────────────────────────
+   4. NAVBAR
+───────────────────────────────────── */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 56px;
+  height: 70px;
+  background: var(--dark);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  transition: box-shadow 0.3s;
+}
+
+.navbar__logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 30px;
+  color: var(--gold);
+  letter-spacing: 3px;
+}
+.navbar__logo span {
+  color: var(--white);
+}
+
+.navbar__links {
+  display: flex;
+  gap: 36px;
+  align-items: center;
+}
+.navbar__links a {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  transition: color 0.2s;
+}
+.navbar__links a:hover {
+  color: var(--gold);
+}
+
+.navbar__cta {
+  background: var(--gold);
+  color: var(--dark);
+  border: none;
+  padding: 11px 24px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: background 0.2s, transform 0.15s;
+}
+.navbar__cta:hover {
+  background: var(--gold-dk);
+  transform: translateY(-1px);
+}
+
+
+/* ─────────────────────────────────────
+   5. HERO
+───────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 580px;
+  display: flex;
+  align-items: center;
+  background: var(--dark);
+  overflow: hidden;
+}
+
+/* padrão de grade diagonal */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(245, 200, 66, 0.07) 0,
+    rgba(245, 200, 66, 0.07) 1px,
+    transparent 0,
+    transparent 50%
+  );
+  background-size: 32px 32px;
+  pointer-events: none;
+}
+
+.hero__glow {
+  position: absolute;
+  right: -80px;
+  top: -120px;
+  width: 560px;
+  height: 560px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 200, 66, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  padding: 80px 56px;
+  max-width: 640px;
+}
+
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(245, 200, 66, 0.1);
+  border: 1px solid rgba(245, 200, 66, 0.28);
+  color: var(--gold);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 7px 16px;
+  border-radius: 100px;
+  margin-bottom: 28px;
+}
+.hero__badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+}
+
+.hero__title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 90px;
+  line-height: 0.88;
+  color: var(--white);
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+.hero__title .accent {
+  color: var(--gold);
+}
+
+.hero__sub {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.7;
+  margin-bottom: 40px;
+  font-weight: 300;
+  max-width: 460px;
+}
+
+.hero__btns {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* decoração SVG do campo */
+.hero__pitch {
+  position: absolute;
+  right: 56px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+/* barra de stats no rodapé do hero */
+.hero__stats {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: flex-end;
+  padding: 24px 56px;
+  gap: 52px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+}
+
+.hero__stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 44px;
+  color: var(--gold);
+  line-height: 1;
+}
+.hero__stat-label {
+  font-size: 10.5px;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin-top: 3px;
+}
+
+
+/* ─────────────────────────────────────
+   6. SEARCH BAR
+───────────────────────────────────── */
+.search-wrap {
+  padding: 0 56px;
+  position: relative;
+  z-index: 10;
+  margin-top: -38px;
+}
+
+.search-bar {
+  background: var(--white);
+  box-shadow: 0 8px 48px rgba(0, 0, 0, 0.14);
+  border-radius: 18px;
+  padding: 22px 28px;
+  display: flex;
+  align-items: center;
+}
+
+.search-field {
+  flex: 1;
+  padding: 0 24px;
+  border-right: 1px solid var(--border);
+}
+.search-field:first-child {
+  padding-left: 0;
+}
+.search-field:last-of-type {
+  border-right: none;
+}
+
+.search-field label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: #aaa;
+  margin-bottom: 5px;
+}
+
+.search-field input {
+  border: none;
+  outline: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--dark);
+  background: transparent;
+  width: 100%;
+}
+.search-field input::placeholder {
+  color: #ccc;
+  font-weight: 400;
+}
+
+.search-bar__btn {
+  flex-shrink: 0;
+  margin-left: 20px;
+  background: var(--gold);
+  border: none;
+  width: 54px;
+  height: 54px;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.15s;
+}
+.search-bar__btn:hover {
+  background: var(--gold-dk);
+  transform: scale(1.05);
+}
+
+
+/* ─────────────────────────────────────
+   7. EXPERIÊNCIAS
+───────────────────────────────────── */
+.experiences {
+  background: #f9f9f9;
+  padding: 80px 56px;
+}
+
+.experiences__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 40px;
+}
+
+.exp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.exp-card {
+  background: var(--white);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+  transition: transform 0.25s, box-shadow 0.25s;
+  cursor: pointer;
+}
+.exp-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+.exp-card__img {
+  height: 192px;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  padding: 18px;
+  overflow: hidden;
+}
+.exp-card__img--1 { background: linear-gradient(145deg, #12122a 0%, #3d1a1a 100%); }
+.exp-card__img--2 { background: linear-gradient(145deg, #0d2820 0%, #143040 100%); }
+.exp-card__img--3 { background: linear-gradient(145deg, #2a1408 0%, #1a0d38 100%); }
+
+.exp-card__overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0.18;
+}
+.exp-card__overlay svg {
+  width: 100%;
+  height: 100%;
+}
+
+.exp-badge {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  background: var(--gold);
+  color: var(--dark);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 5px 13px;
+  border-radius: 100px;
+}
+.exp-badge--white {
+  background: var(--white);
+  color: var(--dark);
+}
+
+.exp-card__body {
+  padding: 22px;
+}
+
+.exp-card__stadium {
+  font-size: 10.5px;
+  color: #bbb;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin-bottom: 7px;
+}
+
+.exp-card__name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  letter-spacing: 0.5px;
+  color: var(--dark);
+  margin-bottom: 16px;
+  line-height: 1;
+}
+
+.exp-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.exp-price {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--dark);
+}
+.exp-price span {
+  font-size: 13px;
+  font-weight: 400;
+  color: #aaa;
+}
+
+.exp-avail {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--green);
+  background: var(--green-lt);
+  padding: 5px 12px;
+  border-radius: 100px;
+}
+
+
+/* ─────────────────────────────────────
+   8. ESTÁDIOS
+───────────────────────────────────── */
+.stadiums {
+  padding: 56px 56px 64px;
+  background: var(--white);
+}
+
+.stadiums__scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  margin-top: 36px;
+  scrollbar-width: none;
+}
+.stadiums__scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.stadium-pill {
+  flex-shrink: 0;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 100px;
+  padding: 10px 22px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #444;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+.stadium-pill:hover,
+.stadium-pill.active {
+  background: var(--dark);
+  color: var(--gold);
+  border-color: var(--dark);
+}
+
+.stadium-pill__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+.stadium-pill:hover .stadium-pill__dot,
+.stadium-pill.active .stadium-pill__dot {
+  opacity: 1;
+}
+
+
+/* ─────────────────────────────────────
+   9. COPA 2026
+───────────────────────────────────── */
+.copa {
+  position: relative;
+  background: linear-gradient(135deg, #11122e 0%, var(--dark) 100%);
+  padding: 88px 56px;
+  overflow: hidden;
+}
+
+/* grade de fundo */
+.copa::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg,   rgba(245, 200, 66, 0.04) 0, rgba(245, 200, 66, 0.04) 1px, transparent 0, transparent 52px),
+    repeating-linear-gradient(90deg,  rgba(245, 200, 66, 0.04) 0, rgba(245, 200, 66, 0.04) 1px, transparent 0, transparent 52px);
+  pointer-events: none;
+}
+
+.copa__inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+.copa__content .section-title {
+  color: var(--white);
+  font-size: 56px;
+}
+.copa__content .section-sub {
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 32px;
+}
+
+.copa__flags {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  max-width: 480px;
+}
+
+.flag-chip {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: 7px 16px;
+  border-radius: 8px;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.flag-chip:hover {
+  background: rgba(245, 200, 66, 0.1);
+  border-color: rgba(245, 200, 66, 0.3);
+  color: var(--gold);
+}
+
+.copa__numbers {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+
+.copa__num {
+  text-align: right;
+}
+.copa__num-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 64px;
+  color: var(--gold);
+  line-height: 1;
+  letter-spacing: 2px;
+}
+.copa__num-label {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-top: 2px;
+}
+
+
+/* ─────────────────────────────────────
+   10. SOCIAL
+───────────────────────────────────── */
+.social {
+  background: var(--dark2);
+  padding: 88px 56px;
+}
+
+.social .section-title { color: var(--white); }
+.social .section-sub   { color: rgba(255, 255, 255, 0.4); }
+
+.social__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 52px;
+}
+
+.social-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 36px;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  transition: background 0.2s, border-color 0.2s;
+}
+.social-card:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.social-card__icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 26px;
+}
+.social-card__icon--gold  { background: rgba(245, 200, 66, 0.12); }
+.social-card__icon--green { background: rgba(39, 174, 96, 0.12); }
+
+.social-card__title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  color: var(--white);
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+.social-card__desc {
+  font-size: 13.5px;
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+
+/* ─────────────────────────────────────
+   11. PACOTES
+───────────────────────────────────── */
+.packages {
+  padding: 88px 56px;
+  background: #f9f9f9;
+}
+
+.packages__header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.packages__header .section-label { display: inline-block; }
+.packages__header .section-sub   { margin: 0 auto; }
+
+.pkg-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.pkg-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  padding: 36px 32px;
+  position: relative;
+  transition: box-shadow 0.25s, transform 0.25s;
+}
+.pkg-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
+.pkg-card--featured {
+  background: var(--dark);
+  border-color: var(--dark);
+  transform: scale(1.03);
+}
+.pkg-card--featured:hover {
+  transform: scale(1.03) translateY(-4px);
+}
+
+.pkg-featured-label {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gold);
+  color: var(--dark);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 5px 18px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.pkg-tier {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #bbb;
+  margin-bottom: 14px;
+}
+.pkg-card--featured .pkg-tier { color: rgba(255, 255, 255, 0.35); }
+
+.pkg-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 28px;
+}
+.pkg-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 54px;
+  color: var(--dark);
+  line-height: 1;
+}
+.pkg-card--featured .pkg-price { color: var(--gold); }
+
+.pkg-per { font-size: 13px; color: #bbb; }
+.pkg-card--featured .pkg-per { color: rgba(255, 255, 255, 0.3); }
+
+.pkg-features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.pkg-features li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  color: #555;
+}
+.pkg-card--featured .pkg-features li { color: rgba(255, 255, 255, 0.65); }
+
+.pkg-features li::before {
+  content: '✓';
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--green-lt);
+  color: var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.pkg-card--featured .pkg-features li::before {
+  background: rgba(245, 200, 66, 0.14);
+  color: var(--gold);
+}
+
+.pkg-btn {
+  width: 100%;
+  padding: 15px;
+  border-radius: 11px;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  color: var(--dark);
+  transition: all 0.2s;
+}
+.pkg-btn:hover {
+  background: var(--dark);
+  color: var(--white);
+  border-color: var(--dark);
+}
+
+.pkg-card--featured .pkg-btn {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--dark);
+}
+.pkg-card--featured .pkg-btn:hover {
+  background: var(--gold-dk);
+  border-color: var(--gold-dk);
+}
+
+
+/* ─────────────────────────────────────
+   12. PARCEIROS
+───────────────────────────────────── */
+.partners {
+  background: var(--white);
+  padding: 56px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.partners__label {
+  text-align: center;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #ccc;
+  margin-bottom: 32px;
+}
+
+.partners__logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 52px;
+  flex-wrap: wrap;
+}
+
+.partner-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 2px;
+  color: #ccc;
+  transition: color 0.2s;
+}
+.partner-logo:hover { color: var(--dark); }
+
+
+/* ─────────────────────────────────────
+   13. FOOTER
+───────────────────────────────────── */
+.footer {
+  background: var(--dark);
+  padding: 64px 56px 32px;
+}
+
+.footer__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 60px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.footer__brand-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 34px;
+  color: var(--gold);
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+}
+.footer__brand-logo span { color: var(--white); }
+
+.footer__tagline {
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.3);
+  line-height: 1.7;
+  max-width: 230px;
+  font-weight: 300;
+}
+
+.footer__links {
+  display: flex;
+  gap: 72px;
+}
+
+.footer__col h4 {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.25);
+  margin-bottom: 20px;
+}
+
+.footer__col a {
+  display: block;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 13px;
+  font-weight: 300;
+  margin-bottom: 12px;
+  transition: color 0.2s;
+}
+.footer__col a:hover { color: var(--gold); }
+
+.footer__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 28px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer__copy {
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.18);
+}
+
+.footer__social {
+  display: flex;
+  gap: 10px;
+}
+
+.social-icon-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.social-icon-btn:hover {
+  background: rgba(245, 200, 66, 0.12);
+  color: var(--gold);
+  border-color: rgba(245, 200, 66, 0.2);
+}
+
+
+/* ─────────────────────────────────────
+   14. RESPONSIVO
+───────────────────────────────────── */
+@media (max-width: 960px) {
+  .navbar              { padding: 0 24px; }
+  .navbar__links       { display: none; }
+
+  .hero__content       { padding: 64px 24px; }
+  .hero__title         { font-size: 64px; }
+  .hero__pitch         { display: none; }
+  .hero__stats         { padding: 20px 24px; gap: 28px; }
+
+  .search-wrap         { padding: 0 24px; margin-top: -28px; }
+  .search-bar          { flex-direction: column; gap: 16px; }
+  .search-field        { border-right: none; border-bottom: 1px solid var(--border); padding: 0 0 16px; width: 100%; }
+  .search-field:last-of-type { border-bottom: none; padding-bottom: 0; }
+  .search-bar__btn     { width: 100%; border-radius: 10px; height: 48px; margin-left: 0; }
+
+  .experiences,
+  .stadiums,
+  .copa,
+  .social,
+  .packages,
+  .partners,
+  .footer              { padding-left: 24px; padding-right: 24px; }
+
+  .experiences__header { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .exp-grid            { grid-template-columns: 1fr; }
+
+  .copa__inner         { flex-direction: column; }
+  .copa__numbers       { align-items: flex-start; flex-direction: row; }
+
+  .social__grid        { grid-template-columns: 1fr; }
+
+  .pkg-grid            { grid-template-columns: 1fr; }
+  .pkg-card--featured  { transform: none; }
+  .pkg-card--featured:hover { transform: translateY(-4px); }
+
+  .footer__top         { flex-direction: column; gap: 40px; }
+  .footer__links       { flex-wrap: wrap; gap: 40px; }
+}
+
+@media (max-width: 640px) {
+  .hero__title                  { font-size: 52px; }
+  .section-title                { font-size: 36px; }
+  .copa__content .section-title { font-size: 40px; }
+}

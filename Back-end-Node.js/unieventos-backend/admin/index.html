@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UniEventos — Painel Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #F5C842; --gold-dk: #D4A800;
+      --dark: #0d0d0d; --dark2: #1a1a1a; --dark3: #252525;
+      --green: #27ae60; --red: #e74c3c;
+      --gray: #666; --gray-lt: #f5f5f5; --border: #e8e8e8;
+      --white: #fff;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: #f0f0ec; color: var(--dark2); min-height: 100vh; }
+
+    /* ── LOGIN ── */
+    #login-screen {
+      position: fixed; inset: 0;
+      background: var(--dark);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1000;
+    }
+    .login-box {
+      background: #1a1a1a; border-radius: 20px;
+      padding: 48px 40px; width: 380px;
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+    .login-logo { font-family: 'Bebas Neue'; font-size: 28px; color: var(--gold); letter-spacing: 3px; margin-bottom: 6px; }
+    .login-logo span { color: var(--white); }
+    .login-title { font-size: 13px; color: rgba(255,255,255,0.4); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 32px; }
+    .login-box label { display: block; font-size: 11px; font-weight: 600; letter-spacing: 1px; color: rgba(255,255,255,0.4); text-transform: uppercase; margin-bottom: 6px; }
+    .login-box input {
+      width: 100%; background: #252525; border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 9px; padding: 12px 14px; color: var(--white);
+      font-family: 'DM Sans'; font-size: 14px; margin-bottom: 16px; outline: none;
+      transition: border-color 0.2s;
+    }
+    .login-box input:focus { border-color: var(--gold); }
+    .login-btn {
+      width: 100%; background: var(--gold); color: var(--dark); border: none;
+      border-radius: 9px; padding: 14px; font-family: 'DM Sans'; font-size: 14px;
+      font-weight: 600; cursor: pointer; transition: background 0.2s;
+    }
+    .login-btn:hover { background: var(--gold-dk); }
+    .login-error { color: #e74c3c; font-size: 12px; margin-top: 10px; display: none; text-align: center; }
+
+    /* ── LAYOUT PRINCIPAL ── */
+    #app { display: none; min-height: 100vh; }
+
+    .sidebar {
+      position: fixed; left: 0; top: 0; bottom: 0; width: 220px;
+      background: var(--dark); display: flex; flex-direction: column;
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+    .sidebar-logo { font-family: 'Bebas Neue'; font-size: 22px; color: var(--gold); letter-spacing: 3px; padding: 28px 24px 20px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .sidebar-logo span { color: var(--white); }
+    .sidebar-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; color: rgba(255,255,255,0.2); text-transform: uppercase; padding: 20px 24px 8px; }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 24px; color: rgba(255,255,255,0.5); font-size: 13px; font-weight: 500;
+      cursor: pointer; transition: background 0.15s, color 0.15s; border: none; background: none; width: 100%; text-align: left;
+    }
+    .nav-item:hover { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.8); }
+    .nav-item.active { background: rgba(245,200,66,0.08); color: var(--gold); border-right: 2px solid var(--gold); }
+    .nav-icon { font-size: 16px; width: 20px; text-align: center; }
+    .sidebar-footer { margin-top: auto; padding: 20px 24px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .logout-btn { font-size: 12px; color: rgba(255,255,255,0.3); cursor: pointer; background: none; border: none; font-family: 'DM Sans'; }
+    .logout-btn:hover { color: var(--red); }
+
+    .main { margin-left: 220px; padding: 32px; min-height: 100vh; }
+    .page { display: none; }
+    .page.active { display: block; }
+
+    .page-title { font-family: 'Bebas Neue'; font-size: 36px; letter-spacing: 1px; color: var(--dark); margin-bottom: 4px; }
+    .page-sub { font-size: 13px; color: var(--gray); margin-bottom: 28px; }
+
+    /* ── CARDS MÉTRICA ── */
+    .metric-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 28px; }
+    .metric-card { background: var(--white); border-radius: 14px; padding: 20px 22px; border: 0.5px solid var(--border); }
+    .metric-label { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: #aaa; margin-bottom: 8px; }
+    .metric-value { font-family: 'Bebas Neue'; font-size: 38px; color: var(--dark); line-height: 1; }
+    .metric-value.gold { color: var(--gold-dk); }
+    .metric-value.green { color: var(--green); }
+    .metric-sub { font-size: 11px; color: #aaa; margin-top: 4px; }
+
+    /* ── TABELAS ── */
+    .table-card { background: var(--white); border-radius: 14px; border: 0.5px solid var(--border); overflow: hidden; margin-bottom: 24px; }
+    .table-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; border-bottom: 0.5px solid var(--border); }
+    .table-title { font-size: 14px; font-weight: 600; color: var(--dark2); }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th { text-align: left; padding: 10px 16px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #aaa; background: #fafafa; border-bottom: 0.5px solid var(--border); }
+    td { padding: 12px 16px; border-bottom: 0.5px solid #f5f5f5; color: var(--dark2); vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #fafafa; }
+
+    /* badges */
+    .badge { display: inline-flex; padding: 3px 10px; border-radius: 100px; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
+    .badge-green  { background: rgba(39,174,96,0.1);  color: #1a7a40; }
+    .badge-gold   { background: rgba(245,200,66,0.15); color: #a07a00; }
+    .badge-red    { background: rgba(231,76,60,0.1);  color: #a93226; }
+    .badge-gray   { background: #f0f0f0; color: #666; }
+
+    /* ── FILTROS / BUSCA ── */
+    .filter-row { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+    .filter-input {
+      background: var(--white); border: 0.5px solid var(--border); border-radius: 9px;
+      padding: 9px 14px; font-size: 13px; font-family: 'DM Sans'; outline: none;
+      transition: border-color 0.15s; color: var(--dark2);
+    }
+    .filter-input:focus { border-color: var(--gold); }
+    .filter-btn {
+      background: var(--dark); color: var(--white); border: none; border-radius: 9px;
+      padding: 9px 18px; font-size: 13px; font-family: 'DM Sans'; font-weight: 500; cursor: pointer;
+    }
+    .filter-btn:hover { background: var(--dark3); }
+    .action-btn {
+      background: none; border: 0.5px solid var(--border); border-radius: 7px;
+      padding: 5px 10px; font-size: 11px; cursor: pointer; font-family: 'DM Sans';
+      transition: background 0.15s;
+    }
+    .action-btn:hover { background: #f5f5f5; }
+    .action-btn.danger { color: var(--red); border-color: rgba(231,76,60,0.3); }
+    .action-btn.danger:hover { background: rgba(231,76,60,0.06); }
+
+    .loading { text-align: center; padding: 40px; color: #aaa; font-size: 13px; }
+    .empty   { text-align: center; padding: 40px; color: #bbb; font-size: 13px; }
+  </style>
+</head>
+<body>
+
+<!-- ══════ LOGIN ══════ -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">UNI<span>EVENTOS</span></div>
+    <div class="login-title">Painel Administrativo</div>
+    <label>E-mail</label>
+    <input type="email" id="login-email" placeholder="admin@unieventos.com.br" />
+    <label>Senha</label>
+    <input type="password" id="login-password" placeholder="••••••••••" />
+    <button class="login-btn" onclick="doLogin()">Entrar →</button>
+    <div class="login-error" id="login-error">Credenciais inválidas. Tente novamente.</div>
+  </div>
+</div>
+
+<!-- ══════ APP ══════ -->
+<div id="app">
+
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <div class="sidebar-logo">UNI<span>EVENTOS</span></div>
+    <div class="sidebar-label">Navegação</div>
+    <button class="nav-item active" onclick="showPage('dashboard')">
+      <span class="nav-icon">📊</span> Dashboard
+    </button>
+    <button class="nav-item" onclick="showPage('clients')">
+      <span class="nav-icon">👥</span> Clientes
+    </button>
+    <button class="nav-item" onclick="showPage('bookings')">
+      <span class="nav-icon">🎟️</span> Reservas
+    </button>
+    <div class="sidebar-footer">
+      <button class="logout-btn" onclick="doLogout()">⬅ Sair</button>
+    </div>
+  </nav>
+
+  <!-- Conteúdo -->
+  <main class="main">
+
+    <!-- ── Dashboard ── -->
+    <div class="page active" id="page-dashboard">
+      <div class="page-title">Dashboard</div>
+      <div class="page-sub" id="dash-updated">Carregando...</div>
+
+      <div class="metric-grid" id="dash-metrics">
+        <div class="metric-card"><div class="metric-label">Total de Reservas</div><div class="metric-value" id="m-bookings">—</div></div>
+        <div class="metric-card"><div class="metric-label">Receita Total</div><div class="metric-value gold" id="m-revenue">—</div></div>
+        <div class="metric-card"><div class="metric-label">Clientes</div><div class="metric-value green" id="m-clients">—</div></div>
+        <div class="metric-card"><div class="metric-label">Ingressos Vendidos</div><div class="metric-value" id="m-tickets">—</div></div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-header"><div class="table-title">Reservas por pacote</div></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Pacote</th><th>Reservas</th><th>Receita</th></tr></thead>
+            <tbody id="dash-packages"><tr><td colspan="3" class="loading">Carregando...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-header"><div class="table-title">Últimas 5 reservas</div></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Pedido</th><th>Cliente</th><th>Pacote</th><th>Total</th><th>Data</th><th>Status</th></tr></thead>
+            <tbody id="dash-recent"><tr><td colspan="6" class="loading">Carregando...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Clientes ── -->
+    <div class="page" id="page-clients">
+      <div class="page-title">Clientes</div>
+      <div class="page-sub">Todos os clientes cadastrados</div>
+      <div class="filter-row">
+        <input class="filter-input" id="client-search" placeholder="Buscar por nome ou e-mail..." style="flex:1;min-width:200px" oninput="filterClients()" />
+      </div>
+      <div class="table-card">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>ID</th><th>Nome</th><th>E-mail</th><th>Telefone</th><th>Reservas</th><th>Total Gasto</th><th>Cadastro</th><th>Ações</th></tr></thead>
+            <tbody id="clients-tbody"><tr><td colspan="8" class="loading">Carregando...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Reservas ── -->
+    <div class="page" id="page-bookings">
+      <div class="page-title">Reservas</div>
+      <div class="page-sub">Todos os pedidos registrados</div>
+      <div class="filter-row">
+        <input class="filter-input" id="booking-search" placeholder="Buscar por pedido ou cliente..." style="flex:1;min-width:200px" oninput="filterBookings()" />
+        <select class="filter-input" id="booking-status" onchange="filterBookings()">
+          <option value="">Todos os status</option>
+          <option value="confirmed">Confirmados</option>
+          <option value="cancelled">Cancelados</option>
+        </select>
+        <select class="filter-input" id="booking-pkg" onchange="filterBookings()">
+          <option value="">Todos os pacotes</option>
+          <option value="basico">Básico</option>
+          <option value="premium">Family Premium</option>
+          <option value="vip">Camarote VIP</option>
+        </select>
+      </div>
+      <div class="table-card">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Pedido</th><th>Cliente</th><th>Pacote</th><th>Estádio</th><th>Qtd</th><th>Total</th><th>Pagamento</th><th>Data</th><th>Status</th><th>Ações</th></tr></thead>
+            <tbody id="bookings-tbody"><tr><td colspan="10" class="loading">Carregando...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+const API = 'http://localhost:3001/api';
+let token = localStorage.getItem('ue_admin_token');
+let allClients  = [];
+let allBookings = [];
+
+/* ── AUTENTICAÇÃO ── */
+async function doLogin() {
+  const email    = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  const errEl    = document.getElementById('login-error');
+
+  try {
+    const r = await fetch(`${API}/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+    const data = await r.json();
+    if (!r.ok) { errEl.style.display = 'block'; return; }
+
+    token = data.token;
+    localStorage.setItem('ue_admin_token', token);
+    errEl.style.display = 'none';
+    enterApp();
+  } catch {
+    errEl.style.display = 'block';
+  }
+}
+
+function doLogout() {
+  localStorage.removeItem('ue_admin_token');
+  token = null;
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+}
+
+function enterApp() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  loadDashboard();
+  loadClients();
+  loadBookings();
+}
+
+/* ── NAVEGAÇÃO ── */
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById(`page-${name}`).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+/* ── API HELPERS ── */
+async function apiFetch(path, opts = {}) {
+  const r = await fetch(`${API}${path}`, {
+    ...opts,
+    headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json', ...(opts.headers||{}) }
+  });
+  if (r.status === 401) { doLogout(); return null; }
+  return r.json();
+}
+
+/* ── FORMATAÇÃO ── */
+function fmtMoney(v) {
+  return 'R$ ' + Number(v||0).toLocaleString('pt-BR', { minimumFractionDigits:2, maximumFractionDigits:2 });
+}
+function fmtDate(s) {
+  if (!s) return '—';
+  return new Date(s).toLocaleString('pt-BR', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });
+}
+function statusBadge(s) {
+  if (s === 'confirmed') return '<span class="badge badge-green">Confirmado</span>';
+  if (s === 'cancelled') return '<span class="badge badge-red">Cancelado</span>';
+  return `<span class="badge badge-gray">${s}</span>`;
+}
+function pkgBadge(k) {
+  if (k === 'vip')     return '<span class="badge badge-gold">VIP</span>';
+  if (k === 'premium') return '<span class="badge badge-green">Premium</span>';
+  return '<span class="badge badge-gray">Básico</span>';
+}
+
+/* ── DASHBOARD ── */
+async function loadDashboard() {
+  const stats = await apiFetch('/bookings/stats');
+  if (!stats) return;
+
+  document.getElementById('m-bookings').textContent = stats.total_bookings || 0;
+  document.getElementById('m-revenue').textContent  = fmtMoney(stats.total_revenue);
+  document.getElementById('m-tickets').textContent  = stats.total_tickets || 0;
+  document.getElementById('dash-updated').textContent = `Atualizado em ${new Date().toLocaleTimeString('pt-BR')}`;
+
+  const clients = await apiFetch('/clients');
+  document.getElementById('m-clients').textContent = clients ? clients.length : '—';
+
+  // Pacotes
+  const pkgBody = document.getElementById('dash-packages');
+  pkgBody.innerHTML = (stats.byPackage || []).length === 0
+    ? '<tr><td colspan="3" class="empty">Sem dados</td></tr>'
+    : stats.byPackage.map(p => `
+        <tr>
+          <td>${pkgBadge('')} ${p.package_name}</td>
+          <td><strong>${p.count}</strong></td>
+          <td>${fmtMoney(p.revenue)}</td>
+        </tr>`).join('');
+
+  // Recentes
+  const recent = await apiFetch('/bookings');
+  const recentBody = document.getElementById('dash-recent');
+  recentBody.innerHTML = (!recent || recent.length === 0)
+    ? '<tr><td colspan="6" class="empty">Nenhuma reserva ainda</td></tr>'
+    : recent.slice(0,5).map(b => `
+        <tr>
+          <td><code style="font-size:11px">${b.order_id}</code></td>
+          <td>${b.client_name}</td>
+          <td>${b.package_name}</td>
+          <td>${fmtMoney(b.total_price)}</td>
+          <td>${fmtDate(b.created_at)}</td>
+          <td>${statusBadge(b.status)}</td>
+        </tr>`).join('');
+}
+
+/* ── CLIENTES ── */
+async function loadClients() {
+  const data = await apiFetch('/clients');
+  allClients = data || [];
+  renderClients(allClients);
+}
+
+function renderClients(list) {
+  const tbody = document.getElementById('clients-tbody');
+  tbody.innerHTML = list.length === 0
+    ? '<tr><td colspan="8" class="empty">Nenhum cliente cadastrado</td></tr>'
+    : list.map(c => `
+        <tr>
+          <td style="color:#aaa">#${c.id}</td>
+          <td><strong>${c.name}</strong></td>
+          <td>${c.email}</td>
+          <td>${c.phone || '—'}</td>
+          <td><span class="badge badge-gold">${c.total_bookings}</span></td>
+          <td>${fmtMoney(c.total_spent)}</td>
+          <td>${fmtDate(c.created_at)}</td>
+          <td>
+            <button class="action-btn danger" onclick="deleteClient(${c.id}, '${c.name}')">Remover</button>
+          </td>
+        </tr>`).join('');
+}
+
+function filterClients() {
+  const q = document.getElementById('client-search').value.toLowerCase();
+  renderClients(allClients.filter(c =>
+    c.name.toLowerCase().includes(q) || c.email.toLowerCase().includes(q)
+  ));
+}
+
+async function deleteClient(id, name) {
+  if (!confirm(`Remover cliente "${name}"? As reservas dele serão mantidas.`)) return;
+  await apiFetch(`/clients/${id}`, { method: 'DELETE' });
+  loadClients();
+  loadDashboard();
+}
+
+/* ── RESERVAS ── */
+async function loadBookings() {
+  const data = await apiFetch('/bookings');
+  allBookings = data || [];
+  renderBookings(allBookings);
+}
+
+function renderBookings(list) {
+  const tbody = document.getElementById('bookings-tbody');
+  tbody.innerHTML = list.length === 0
+    ? '<tr><td colspan="10" class="empty">Nenhuma reserva encontrada</td></tr>'
+    : list.map(b => `
+        <tr>
+          <td><code style="font-size:10px">${b.order_id}</code></td>
+          <td>${b.client_name}<br><span style="font-size:11px;color:#aaa">${b.client_email}</span></td>
+          <td>${pkgBadge(b.package_key)} ${b.package_name}</td>
+          <td style="font-size:12px">${b.stadium.split('·')[0]}</td>
+          <td>${b.quantity}x</td>
+          <td><strong>${fmtMoney(b.total_price)}</strong></td>
+          <td style="font-size:12px">${b.payment_method}</td>
+          <td style="font-size:11px;color:#aaa">${fmtDate(b.created_at)}</td>
+          <td>${statusBadge(b.status)}</td>
+          <td>
+            ${b.status === 'confirmed'
+              ? `<button class="action-btn danger" onclick="cancelBooking('${b.order_id}')">Cancelar</button>`
+              : '<span style="font-size:11px;color:#ccc">—</span>'
+            }
+          </td>
+        </tr>`).join('');
+}
+
+function filterBookings() {
+  const q      = document.getElementById('booking-search').value.toLowerCase();
+  const status = document.getElementById('booking-status').value;
+  const pkg    = document.getElementById('booking-pkg').value;
+
+  renderBookings(allBookings.filter(b => {
+    const matchQ   = !q || b.order_id.toLowerCase().includes(q) || b.client_name.toLowerCase().includes(q) || b.client_email.toLowerCase().includes(q);
+    const matchSt  = !status || b.status === status;
+    const matchPkg = !pkg    || b.package_key === pkg;
+    return matchQ && matchSt && matchPkg;
+  }));
+}
+
+async function cancelBooking(orderId) {
+  if (!confirm(`Cancelar reserva ${orderId}?`)) return;
+  await apiFetch(`/bookings/${orderId}/cancel`, { method: 'PUT' });
+  loadBookings();
+  loadDashboard();
+}
+
+/* ── INIT ── */
+document.getElementById('login-password').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+});
+
+if (token) {
+  enterApp();
+}
+</script>
+</body>
+</html>
